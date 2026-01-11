@@ -12,17 +12,17 @@ const Navbar = () => {
             <h3>MyApiary</h3>
         </div>
 
-        <ul>
-            <li className={["/", "/new-hive", "/apiary"].includes(location.pathname)? "active" : ""}>
-            <Link to="/">Пасіка</Link>
+       <ul>
+            <li className={(location.pathname === "/" || location.pathname === "/new-hive" || location.pathname.startsWith("/apiary")) ? "active" : ""}>
+                <Link to="/">Пасіка</Link>
             </li>
 
-            <li className={["/stats"].includes(location.pathname)? "active" : ""}>
-            <Link to="/stats">Статистика</Link>
+            <li className={location.pathname === "/stats" ? "active" : ""}>
+                <Link to="/stats">Огляд</Link>
             </li>
 
-            <li className={["/profile"].includes(location.pathname)? "active" : ""}>
-            <Link to="/profile">Кабінет</Link>
+            <li className={location.pathname === "/profile" ? "active" : ""}>
+                <Link to="/profile">Кабінет</Link>
             </li>
         </ul>
         </nav>
