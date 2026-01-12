@@ -1,23 +1,23 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./Queen.css";
 import backarrow from "../assets/back-arrow.png";
 
 export default function Queen() {
     const navigate = useNavigate();
+    const { apiaryId, hiveId } = useParams();
 
     const [hasQueen, setHasQueen] = useState(true);
-
     const [day, setDay] = useState("");
     const [month, setMonth] = useState("");
     const [year, setYear] = useState("");
-
     const [marked, setMarked] = useState(false);
     const [color, setColor] = useState("");
 
-    /* ===== завантаження з localStorage ===== */
+    const storageKey = `queen_${apiaryId}_${hiveId}`;
+
     useEffect(() => {
-        const saved = JSON.parse(localStorage.getItem("queenInfo"));
+        const saved = JSON.parse(localStorage.getItem(storageKey));
         if (!saved) return;
 
         setHasQueen(saved.hasQueen);
@@ -31,9 +31,8 @@ export default function Queen() {
 
         setMarked(saved.marked || false);
         setColor(saved.color || "");
-    }, []);
+    }, [storageKey]);
 
-    /* ===== автоматичний підрахунок віку ===== */
     const age = useMemo(() => {
         if (!day || !month || !year) return null;
 
@@ -54,7 +53,6 @@ export default function Queen() {
         };
     }, [day, month, year]);
 
-    /* ===== збереження ===== */
     const saveQueen = () => {
         const data = hasQueen
             ? {
@@ -66,7 +64,7 @@ export default function Queen() {
             }
             : { hasQueen: false };
 
-        localStorage.setItem("queenInfo", JSON.stringify(data));
+        localStorage.setItem(storageKey, JSON.stringify(data));
         navigate(-1);
     };
 
@@ -81,7 +79,6 @@ export default function Queen() {
             </header>
 
             <div className="queen-form">
-                {/* ===== Є / Немає ===== */}
                 <label className="radio">
                     <input
                         type="radio"
@@ -100,7 +97,6 @@ export default function Queen() {
                     Немає королеви
                 </label>
 
-                {/* ===== НАЛАШТУВАННЯ КОРОЛЕВИ ===== */}
                 {hasQueen && (
                     <>
                         <p className="label">Дата виведення</p>

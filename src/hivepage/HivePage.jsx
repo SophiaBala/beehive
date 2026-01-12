@@ -7,8 +7,13 @@ import hiveImg from "../assets/hive.png";
 export default function HivePage() {
     const { apiaryId, hiveId } = useParams();
     const navigate = useNavigate();
+
     const [hive, setHive] = useState(null);
     const [inspections, setInspections] = useState([]);
+    const [totalHoney, setTotalHoney] = useState(0);
+    const [queenInfo, setQueenInfo] = useState({});
+
+    const queenKey = `queen_${apiaryId}_${hiveId}`; 
 
     useEffect(() => {
         const hives = JSON.parse(localStorage.getItem(`hives_${apiaryId}`)) || [];
@@ -17,10 +22,14 @@ export default function HivePage() {
 
         const historyKey = `inspections_${apiaryId}_${hiveId}`;
         const history = JSON.parse(localStorage.getItem(historyKey)) || [];
-        
         const sortedHistory = history.sort((a, b) => new Date(b.date) - new Date(a.date));
         setInspections(sortedHistory);
     }, [apiaryId, hiveId]);
+
+    useEffect(() => {
+        const savedQueen = JSON.parse(localStorage.getItem(queenKey));
+        setQueenInfo(savedQueen || {});
+    }, [queenKey]);
 
     if (!hive) return <p className="not-found">Вулик не знайдено</p>;
 
@@ -33,7 +42,6 @@ export default function HivePage() {
                     <img src={backarrow} alt="Назад" />
                 </button>
                 <h1>{hive.hiveName}</h1>
-                
             </header>
 
             <section className="hive-hero">
@@ -45,60 +53,32 @@ export default function HivePage() {
             </section>
 
             <section className="info-grid">
-                <div className="info-card">
+                <div className="info-card"
+                    onClick={() => navigate(`/harvest/${apiaryId}/${hiveId}`)}
+                >
                     <b className="stat-label">Зібраний мед</b>
                     <p className="stat-value">🍯 {lastData.honey || 0} кг</p>
                 </div>
-
-                <div className="info-card">
+                <div
+                    className="info-card"
+                    onClick={() => navigate(`/queen/${apiaryId}/${hiveId}`)}
+                >
                     <b className="stat-label">Королева</b>
-                    <p className="stat-value">{lastData.queen || "Немає даних"}</p>
+                    <p className="stat-value">
+                        {queenInfo.hasQueen
+                            ? `Є${queenInfo.marked ? `, мітка: ${queenInfo.color || "-"}` : ""}`
+                            : "Немає даних"}
+                    </p>
                 </div>
 
                 <div className="info-card">
                     <b className="stat-label">Годування</b>
                     <p className="stat-value">{lastData.feeding || "Не проводилось"}</p>
                 </div>
-
                 <div className="info-card">
                     <b className="stat-label">Здоровʼя</b>
                     <p className="stat-value">{lastData.health || "Без зауважень"}</p>
                 </div>
-            <button onClick={() => navigate(-1)} className="back-btn">
-                <img src={backarrow} className="button-img" />
-            </button>
-            <h1>{hive.hiveName}</h1>
-        </section>
-
-        <section className="hive-hero">
-            <img src={hive.photo || hiveImg} alt="Вулик" />
-            <div className="hero-info">
-            <span>{hive.breed}</span>
-            <span>{hive.hiveType}</span>
-            </div>
-        </section>
-
-        <section className="info-grid">
-
-            <div className="info-card wide soft" onClick={() => navigate("/harvest")}>
-            <b>Зібраний мед</b>
-            <p className="honey">🍯 {hive.honeyCollected || 0} кг</p>
-            </div>
-
-            <div className="info-card wide soft" onClick={() => navigate("/queen")}>
-            <b>Королева</b>
-            <p className="muted">{hive.queen || "Немає даних"}</p>
-            </div>
-
-            {/* <div className="info-card">
-            <b>Годування</b>
-            <p className="muted">{hive.feeding || "Не проводилось"}</p>
-            </div>
-
-            <div className="info-card">
-            <b>Здоровʼя</b>
-            <p className="muted">{hive.health || "Без зауважень"}</p>
-            </div> */}
 
                 <div className="info-card wide soft">
                     <b className="stat-label">Інспекції</b>

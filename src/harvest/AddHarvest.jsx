@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./Harvest.css";
 import backarrow from "../assets/back-arrow.png";
 
-
-
 export default function AddHarvest() {
     const navigate = useNavigate();
+    const { apiaryId, hiveId } = useParams();
 
     const [honey, setHoney] = useState("");
     const [wax, setWax] = useState("");
@@ -21,11 +20,12 @@ export default function AddHarvest() {
             date: new Date().toLocaleDateString("uk-UA"),
         };
 
-        const saved = JSON.parse(localStorage.getItem("harvest")) || [];
+        const storageKey = `harvest_${apiaryId}_${hiveId}`;
+        const saved = JSON.parse(localStorage.getItem(storageKey)) || [];
         const updated = [newRecord, ...saved];
 
-        localStorage.setItem("harvest", JSON.stringify(updated));
-        navigate("/harvest");
+        localStorage.setItem(storageKey, JSON.stringify(updated));
+        navigate(-1);
     };
 
     return (
@@ -35,9 +35,6 @@ export default function AddHarvest() {
                     <img src={backarrow} className="button-img" />
                 </button>
                 <p className="harvest-title">Додати запис</p>
-                
-                <button className="edit-btn">
-                </button>
             </header>
 
             <div className="form">
@@ -59,7 +56,9 @@ export default function AddHarvest() {
                     />
                 </label>
 
-                <button className = "saveBtn" onClick={saveRecord}>Зберегти</button>
+                <button className="saveBtn" onClick={saveRecord}>
+                    Зберегти
+                </button>
             </div>
         </div>
     );
