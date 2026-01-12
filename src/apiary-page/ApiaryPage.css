@@ -91,6 +91,7 @@ html, body {
     font-size: 14px;
     background: var(--gray-card);
     outline: none;
+    color: var(--text-dark);
 }
 
 .notes textarea:focus {
