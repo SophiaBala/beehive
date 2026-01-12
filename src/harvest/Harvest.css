@@ -23,10 +23,11 @@ html, body {
     min-height: 100vh;
     padding-bottom: 120px;
     background: #319795;
-
 }
 
-
+.harvest-main{
+    padding: 3%;
+}
 
 .harvest-title {
     font-size: 17px;
@@ -61,7 +62,7 @@ html, body {
     position: fixed;
     bottom: 80px;
     right: 16px;
-
+    color: #1F2937;
     background: #fdd169;
     padding: 14px 22px;
     border-radius: 50%;
@@ -73,7 +74,6 @@ html, body {
     transform: translateY(-2px);
 }
 
-/* Підсумки врожаю */
 .harvest-summary {
     display: flex;
     justify-content: space-around;
@@ -87,12 +87,11 @@ html, body {
     color: #1F2937;
 }
 
-
-/* Список врожаю */
 .harvest-list {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    color: #1F2937;
 }
 
 .harvest-card {
@@ -117,15 +116,18 @@ html, body {
     box-shadow: 0 6px 16px rgba(0,0,0,0.08);
 }
 
+.harvest-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .harvest-date {
     font-size: 14px;
     color: #6B7280;
-    margin-bottom: 4px;
-    right: 300px;
+    white-space: nowrap;
 }
 
-
-/* Порожній список */
 .empty-text {
     text-align: center;
     color: var(--gray-text);
@@ -136,4 +138,8 @@ html, body {
 .saveBtn{
     background-color: #F6C453;
     color: #1F2937;
+}
+
+.form{
+    margin-top: 45%;
 }

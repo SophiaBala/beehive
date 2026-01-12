@@ -20,7 +20,7 @@ export default function Harvest() {
     return (
         <div className="harvest-page">
             <TopBar title="Зібраний врожай" />
-
+            
             <div className="harvest-header">
                 <label
                     className="add-harvest"
@@ -31,25 +31,30 @@ export default function Harvest() {
                     +
                 </label>
             </div>
-
-            <div className="harvest-summary">
-                <div>Мед: <strong>{totalHoney} кг</strong></div>
-                <div>Віск: <strong>{totalWax} кг</strong></div>
-            </div>
-
-            {records.length > 0 ? (
-                <div className="harvest-list">
-                    {records.map((r) => (
-                        <div key={r.id} className="harvest-card">
-                            <div className="harvest-date">{r.date}</div>
-                            <div>Мед: {r.honey} кг</div>
-                            <div>Віск: {r.wax} кг</div>
-                        </div>
-                    ))}
+            <div className="harvest-main">
+                <div className="harvest-summary">
+                    <div>Мед: <strong>{totalHoney} кг</strong></div>
+                    <div>Віск: <strong>{totalWax} кг</strong></div>
                 </div>
-            ) : (
-                <p className="empty-text">Поки що немає записів</p>
-            )}
+
+                {records.length > 0 ? (
+                    <div className="harvest-list">
+                        {records.map((r) => (
+                            <div key={r.id} className="harvest-card">
+                                <div className="harvest-card-header">
+                                    <div>Мед: {r.honey} кг</div>
+                                    <span className="harvest-date">{r.date}</span>
+                                </div>
+                                
+                                <div>Віск: {r.wax} кг</div>
+                            </div>
+
+                        ))}
+                    </div>
+                ) : (
+                    <p className="empty-text">Поки що немає записів</p>
+                )}
+            </div>
         </div>
     );
 }
