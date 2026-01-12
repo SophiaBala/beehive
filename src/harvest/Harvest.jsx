@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./Harvest.css";
-import backarrow from "../assets/back-arrow.png";
+import TopBar from "../TopBar/TopBar.jsx";
 
 export default function Harvest() {
     const navigate = useNavigate();
@@ -19,12 +19,7 @@ export default function Harvest() {
 
     return (
         <div className="harvest-page">
-            <header className="top-bar-harvest">
-                <button className="back-btn" onClick={() => navigate(-1)}>
-                    <img src={backarrow} className="button-img" />
-                </button>
-                <p className="harvest-title">Зібраний врожай</p>
-            </header>
+            <TopBar title="Зібраний врожай" />
 
             <div className="harvest-header">
                 <label

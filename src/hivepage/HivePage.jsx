@@ -1,8 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./HivePage.css";
-import backarrow from "../assets/back-arrow.png";
 import hiveImg from "../assets/hive.png";
+import TopBar from "../TopBar/TopBar.jsx";
 
 export default function HivePage() {
     const { apiaryId, hiveId } = useParams();
@@ -37,12 +37,7 @@ export default function HivePage() {
 
     return (
         <div className="hive-page">
-            <header className="top-bar">
-                <button onClick={() => navigate(-1)} className="back-btn">
-                    <img src={backarrow} alt="Назад" />
-                </button>
-                <h1>{hive.hiveName}</h1>
-            </header>
+            <TopBar title={hive.hiveName} />
 
             <section className="hive-hero">
                 <img src={hive.photo || hiveImg} alt="Вулик" />

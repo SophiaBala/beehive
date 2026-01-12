@@ -1,3 +1,5 @@
+
+import TopBar from "../TopBar/TopBar.jsx";
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
 
@@ -26,9 +28,7 @@ export default function Profile() {
 
     return (
         <div className="profile-page">
-            <header className="top-bar">
-                <h1 className="profile-title">Особистий кабінет</h1>
-            </header>
+             <TopBar title="Особистий кабінет" />
 
             <form className="profile-form" onSubmit={e => e.preventDefault()}>
                 <label>
