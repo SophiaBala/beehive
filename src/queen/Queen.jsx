@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./Queen.css";
-import backarrow from "../assets/back-arrow.png";
+import TopBar from "../TopBar/TopBar.jsx";
+
 
 export default function Queen() {
     const navigate = useNavigate();
@@ -70,13 +71,7 @@ export default function Queen() {
 
     return (
         <div className="queen-page">
-            <header className="top-bar-harvest">
-                <button className="back-btn" onClick={() => navigate(-1)}>
-                    <img src={backarrow} className="button-img" />
-                </button>
-                <p className="harvest-title">Королева</p>
-                <div style={{ width: 40 }} />
-            </header>
+            <TopBar title="Королева" />
 
             <div className="queen-form">
                 <label className="radio">

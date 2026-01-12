@@ -4,6 +4,7 @@ import "./ApiaryPage.css";
 import backarrow from "../assets/back-arrow.png";
 import edit from "../assets/edit.png";
 import hiveImg from "../assets/hive.png";
+import TopBar from "../TopBar/TopBar.jsx";
 
 export default function ApiaryPage() {
     const { id } = useParams();
@@ -24,15 +25,7 @@ export default function ApiaryPage() {
 
     return (
         <div className="apiary-page">
-            <header className="top-bar">
-                <button className="back-btn" onClick={() => navigate(-1)}>
-                    <img src={backarrow} className="button-img" />
-                </button>
-                <h1 className="apiary-title">{apiary.name}</h1>
-                <button className="edit-btn">
-                    {/* <img src={edit} className="button-img" /> */}
-                </button>
-            </header>
+            <TopBar title={apiary.name} />
 
             <section className="notes">
                 <h2>Нотатки</h2>

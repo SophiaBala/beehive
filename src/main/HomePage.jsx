@@ -48,7 +48,6 @@ export default function HomePage() {
             <div className="hive-grid">
                 {filtered.length > 0 ? (
                     filtered.map((apiary) => {
-                        // Рахуємо мед для кожної пасіки окремо
                         const hives = JSON.parse(localStorage.getItem(`hives_${apiary.id}`)) || [];
                         const totalHoney = hives.reduce((sum, hive) => {
                             const honeyAmount = hive.lastInspection?.honey || 0;
